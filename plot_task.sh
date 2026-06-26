@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 # ----
-echo wtf
-trap 'rm data/pid' EXIT
-while read -r line; do
-  echo "$line"
-  sleep 0.5
-done
-exit 0
+# echo wtf
+# trap 'rm data/pid' EXIT
+# while read -r line; do
+#   echo "$line"
+#   sleep 0.5
+# done
+# exit 0
 # ----
 
 DEV=/dev/ttyUSB0
