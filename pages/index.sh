@@ -1,20 +1,24 @@
 
 source config.sh
 
+TITLE=
+
+if [[ -z "$INTERNAL_REQEUEST" ]]; then
+  TITLE="<h1>${PROJECT_NAME}</h1>"
+fi
+
 if [[ -f "data/pid" ]]; then
 htmx_page << EOF
-  <h1>${PROJECT_NAME}</h1>
+  $TITLE
   $(component /progress)
-  <form hx-post="/plot" hx-swap="outerHTML">
   <textarea name="code" rows=30 cols=60 readonly>$(cat data/current)</textarea>
   <br>
   <button disabled type="submit">Print!</button>
-  </form>
 EOF
 else
 htmx_page << EOF
-  <h1>${PROJECT_NAME}</h1>
-  <form hx-post="/plot" hx-swap="outerHTML">
+  $TITLE
+  <form hx-ext="json-enc" hx-post="/plot" hx-swap="outerHTML" hx-encoding='multipart/form-data'>
   <textarea name="code" rows=30 cols=60 placeholder="HPGL code..."></textarea>
   <br>
   <button type="submit">Print!</button>

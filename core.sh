@@ -137,6 +137,7 @@ function htmx_page() {
           integrity="sha384-H5SrcfygHmAuTDZphMHqBJLc3FhssKjG7w/CeCpFReSfwBWDTKpkzPP8c+cLsK+V"
           crossorigin="anonymous"></script>
           <script src="https://cdn.jsdelivr.net/npm/htmx-ext-sse@2.2.4" integrity="sha384-A986SAtodyH8eg8x8irJnYUk7i9inVQqYigD6qZ9evobksGNIXfeFvDwLSHcp31N" crossorigin="anonymous"></script>
+          <script src="https://unpkg.com/htmx-ext-json-enc@2.0.1/json-enc.js"></script>
   </head>
   <body>
   $(_inject_hmr)

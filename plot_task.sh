@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+trap 'rm data/pid' EXIT
+
 # ----
 # echo wtf
 # trap 'rm data/pid' EXIT

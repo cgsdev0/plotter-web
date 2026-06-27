@@ -21,7 +21,7 @@ if [[ -f data/pid ]]; then
   return $(status_code 420)
 fi
 
-echo "${FORM_DATA[code]}" \
+jq -r '.code' <<< "$REQUEST_BODY" \
   | tr -d '\n \t' \
   | sed 's/;/;\n/g' > data/current
 
