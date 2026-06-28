@@ -7,7 +7,7 @@ sudo -u rc git pull
 echo
 
 delayed() {
-  sleep 1
+  sleep 3
   sudo systemctl restart plotter-web
 }
 
