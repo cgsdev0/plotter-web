@@ -3,7 +3,7 @@ if [[ -z "${SESSION[id]}" ]]; then
   return $(status_code 401)
 fi
 
-git pull
+( sudo su rc; git pull )
 
 delayed() {
   sleep 3
