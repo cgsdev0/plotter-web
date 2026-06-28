@@ -3,6 +3,18 @@ source config.sh
 
 TITLE=
 
+LOGGED_OUT=true
+if [[ -n "${SESSION[id]}" ]]; then
+  LOGGED_OUT=false
+fi
+if $LOGGED_OUT; then
+  htmx_page << EOF
+  $TITLE
+  <a href='${RECURSE_BASE_URL}/oauth/authorize?client_id=${APP_ID}&redirect_uri=${REDIRECT_URI}&response_type=code'>Login</a>
+EOF
+  return
+fi
+
 if [[ -z "$INTERNAL_REQEUEST" ]]; then
   TITLE="<h1>${PROJECT_NAME}</h1>"
 fi
