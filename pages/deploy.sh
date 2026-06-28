@@ -1,5 +1,6 @@
 # very secure
-if [[ -z "${SESSION[id]}" ]]; then
+AUTH=${HTTP_HEADERS[Authorization]}
+if [[ "$AUTH" != "$MAGIC_DEPLOY_TOKEN" ]]; then
   return $(status_code 401)
 fi
 

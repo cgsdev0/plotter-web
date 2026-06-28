@@ -1,0 +1,17 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  curl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        env:
+          API_TOKEN: ${{ secrets.MAGIC_DEPLOY_TOKEN }}
+        run: |
+          curl -sSf -H "Authorization: $API_TOKEN" \
+            https://plot.recurse.com/deploy
