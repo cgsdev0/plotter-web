@@ -3,10 +3,11 @@ if [[ -z "${SESSION[id]}" ]]; then
   return $(status_code 401)
 fi
 
-( sudo su rc; git pull )
+sudo -u rc git pull
+echo
 
 delayed() {
-  sleep 3
+  sleep 1
   sudo systemctl restart plotter-web
 }
 
