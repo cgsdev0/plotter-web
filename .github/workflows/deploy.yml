@@ -13,5 +13,5 @@ jobs:
         env:
           API_TOKEN: ${{ secrets.MAGIC_DEPLOY_TOKEN }}
         run: |
-          curl -sSf -H "Authorization: $API_TOKEN" \
+          curl -sS -H "Authorization: $API_TOKEN" \
             https://plot.recurse.com/deploy

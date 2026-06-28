@@ -1,5 +1,5 @@
 # very secure
-AUTH=${HTTP_HEADERS[Authorization]}
+AUTH=${HTTP_HEADERS[authorization]}
 if [[ "$AUTH" != "$MAGIC_DEPLOY_TOKEN" ]]; then
   return $(status_code 401)
 fi
