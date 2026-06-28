@@ -15,7 +15,7 @@ EOF
   return
 fi
 
-if [[ -z "$INTERNAL_REQEUEST" ]]; then
+if [[ -z "$INTERNAL_REQUEST" ]]; then
   TITLE="<h1>${PROJECT_NAME}</h1>"
 fi
 

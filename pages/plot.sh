@@ -9,12 +9,24 @@ if [[ -z "${SESSION[id]}" ]]; then
 fi
 
 event_stream() {
+  local start=$(date +%s%N)
   local length=$(wc -l < data/current)
   local line
-  local idx=0
+  local idx=1
+  local last=$(date +%s%N)
   while IFS= read -r line; do
-    event "update" "<p>$line</p>" | publish progress
-    event "progress" "<p>$idx / $length</p>" | publish progress
+    local now=$(date +%s%N)
+    local delta=$((now - start))
+    local delta2=$((now - last))
+    local eta=$((delta*(length-idx)/idx/1000000000))
+    local mins=$((eta/60))
+    local seconds=$((eta%60))
+    if ((delta2 > 200000000)); then
+      last=$now
+      printf -v remaining "%02d:%02d" $mins $seconds
+      { event "update" "$remaining remaining" "$line";
+  event "progress" "<progress id='file' max='$length' value='$idx'>$idx / $length</progress>"; } | publish progress
+    fi
     ((idx++))
   done
 }

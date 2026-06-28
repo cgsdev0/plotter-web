@@ -2,14 +2,16 @@
 
 trap 'rm data/pid' EXIT
 
+source config.sh
+
 # ----
-# echo wtf
-# trap 'rm data/pid' EXIT
-# while read -r line; do
-#   echo "$line"
-#   sleep 0.5
-# done
-# exit 0
+if [[ "${DEV:-true}" == true ]]; then
+while read -r line; do
+  echo "$line"
+  sleep 0.01
+done
+exit 0
+fi
 # ----
 
 DEV=/dev/ttyUSB0

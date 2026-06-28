@@ -198,7 +198,10 @@ function publish() {
 }
 
 event() {
-  printf "event: %s\ndata: %s\n\n" "$@"
+  printf "event: %s\n" "$1"
+  shift
+  printf "data: %s\n" "$@"
+  printf "\n"
 }
 
 
