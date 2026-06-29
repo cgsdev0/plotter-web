@@ -29,6 +29,7 @@ event_stream() {
     fi
     ((idx++))
   done
+  event "finish" "Done!"| publish progress
 }
 
 # TODO: validate the code first
@@ -42,13 +43,19 @@ jq -r '.code' <<< "$REQUEST_BODY" \
   | tr -d '\n \t' \
   | sed 's/;/;\n/g' > data/current
 
-component /progress
 
-echo "<textarea readonly rows=30 cols=60>"
-cat data/current
-echo "</textarea>"
+max_len=$(awk '{ if (length > max) max = length } END { print max }' < data/current)
+if ((max_len > 60)); then
+  echo "<div id='status' hx-swap-oob='innerHTML'>Invalid hpgl</div>"
+  return
+fi
+
 
 ./plot_task.sh < data/current \
   | event_stream 1>&- 2>&- &
 
 echo "$!" > data/pid
+
+echo '<content id="app" hx-swap-oob="innerHTML">'
+component /app
+echo '</content>'

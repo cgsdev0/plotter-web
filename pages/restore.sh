@@ -1,0 +1,2 @@
+
+cat data/current
