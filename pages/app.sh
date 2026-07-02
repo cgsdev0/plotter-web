@@ -12,7 +12,7 @@ function stop_button {
 }
 
 function text_area {
-    echo '<textarea id="code" name="code" rows=30 cols=60 placeholder="HPGL code...">'
+    echo '<textarea id="code" name="code" placeholder="HPGL code...">'
 	[[ -f data/pid ]]&& cat data/current
 	echo "</textarea>"
 }

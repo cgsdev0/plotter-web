@@ -1,7 +1,4 @@
-- make the end of the print better
-  - reload page
 - css
-- restore button
 - history, along with author
 - display pens used
 - validation?
