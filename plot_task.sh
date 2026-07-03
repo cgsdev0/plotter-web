@@ -31,6 +31,8 @@ buf_remaining() {
       event status Offline | publish progress &
       last=Offline
     fi
+    event stop | publish progress &
+    exit 5
   else
     echo "Online" > data/status
     if [[ "$last" != "Online" ]]; then
