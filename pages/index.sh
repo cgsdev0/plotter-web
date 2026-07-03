@@ -31,7 +31,7 @@ detect_status() {
   exec 3<>$DEV
 
   printf '\x1B.B' >&3
-  IFS= read -t 1 -n6 bytes <&3
+  IFS= read -t 0.1 -n6 bytes <&3
   if [[ $? -ne 0 ]]; then
     echo "Offline" > data/status
   else
@@ -39,6 +39,7 @@ detect_status() {
   fi
   exec 3>&-
 }
+[[ "${DEV:-true}" == "true" ]] || detect_status
 
 htmx_page << EOF
   <h1>${PROJECT_NAME}<sup>NEW!</sup></h1>
