@@ -4,6 +4,8 @@ cd "${0%/*}"
 
 rm data/pid
 
+export GIT_REVISION=$(git rev-parse HEAD)
+
 [[ -f 'config.sh' ]] && source config.sh
 
 if [[ "${DEV:-true}" == "true" ]] && [[ ! -z "$TAILWIND" ]]; then
