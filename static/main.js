@@ -71,6 +71,7 @@ function dragElement(element) {
     pos3 = e.clientX;
     pos4 = e.clientY;
     document.onpointerup = closeDragElement;
+	document.onpointercancel = closeDragElement;
 	  if (element === wizard) { m = 1; }
 
     // call a function whenever the cursor moves:
@@ -93,5 +94,6 @@ function dragElement(element) {
     // stop moving when pointer button is released:
     document.onpointerup = null;
     document.onpointermove = null;
+	  document.onpointercancel = null;
   }
 }
