@@ -5,7 +5,7 @@ cd "${0%/*}"
 rm data/pid
 touch data/status
 
-export GIT_REVISION=$(git rev-parse HEAD)
+export GIT_REVISION=$(<.git/refs/heads/main)
 
 [[ -f 'config.sh' ]] && source config.sh
 
