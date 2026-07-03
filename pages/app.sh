@@ -31,7 +31,7 @@ htmx_page <<-EOF
     </div>
       <section class="field-row" style="justify-content: flex-end">
     <div class="status-field-border" style="padding: 5px; flex: 1;">
-    Plotter status: $(cat data/status)
+    Plotter status: <span hx-swap='textContent' sse-swap='status'>$(cat data/status)</span>
 </div>
 	  $(print_button)
 	  $(stop_button)

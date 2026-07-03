@@ -19,14 +19,24 @@ DEV=/dev/ttyUSB0
 stty -F $DEV 9600 raw -echo
 exec 3<>$DEV
 
+last=$(<data/status)
+
 buf_remaining() {
   local bytes
   printf '\x1B.B' >&3
   IFS= read -t 1 -n6 bytes <&3
   if [[ $? -ne 0 ]]; then
     echo "Offline" > data/status
+    if [[ "$last" != "Offline" ]]; then
+      event status Offline | publish progress &
+      last=Offline
+    fi
   else
     echo "Online" > data/status
+    if [[ "$last" != "Online" ]]; then
+      event status Online | publish progress &
+      last=Online
+    fi
   fi
   available="${bytes:-0}"
 }

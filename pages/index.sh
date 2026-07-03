@@ -34,8 +34,10 @@ detect_status() {
   IFS= read -t 0.1 -n6 bytes <&3
   if [[ $? -ne 0 ]]; then
     echo "Offline" > data/status
+    event status Offline | publish progress &
   else
     echo "Online" > data/status
+    event status Online | publish progress &
   fi
   exec 3>&-
 }
