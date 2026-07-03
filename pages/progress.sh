@@ -1,7 +1,7 @@
 
 if [[ ! -f data/pid ]]; then
 htmx_page << EOF
-<div id="progress" hx-swap-oob=true hx-get="/progress" hx-trigger="sse:start">
+<div id="progress" class="hidden" hx-swap-oob=true hx-get="/progress" hx-trigger="sse:start">
 </div>
 EOF
     return

@@ -12,6 +12,9 @@ sup {
 
 body {
   background-color: #c0c0c0;
+  background-image:url('/static/banner.svg');
+  background-repeat:repeat-x;
+  background-position:00px 90px;
 }
 
 .textbox {
@@ -22,19 +25,45 @@ body {
   }
 }
 
-#wizard,
-h1 {
+#wizard {
   max-width: 640px;
   min-width: 540px;
+  top: 20vh;
+  left: 20vw;
+}
 
-  margin: 0 auto;
+h1 {
+  text-align:center;
 }
 
 #progress {
   width: 420px;
 }
 
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor:not-allowed;
+}
+
+.title-bar {
+  cursor: move;
+}
+
+#signature {
+  display:none;
+}
+
+.hidden {
+  display:none;
+}
+
 .window {
+  top: -1999999px;
+  left: 0px;
+  user-select: none;
   position: absolute;
 }
 #alerts {

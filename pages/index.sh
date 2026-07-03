@@ -28,7 +28,7 @@ htmx_page << EOF
   <div class="title-bar">
   <div class="title-bar-text">Print Wizard</div>
   <div class="title-bar-controls">
-    <button aria-label="Help"></button>
+  <button aria-label="Help" onclick="window.open('https://github.com/recursecenter/wiki/wiki/Plotter-(HP7440A)', '_blank');"></button>
 	<button aria-label="Close" hx-get="/empty" hx-target="closest .window" hx-swap="outerHTML"></button>
     </div>
   </div>
