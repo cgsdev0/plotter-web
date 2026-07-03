@@ -1,24 +1,44 @@
-
-LOGGED_OUT=true
-if [[ -n "${SESSION[id]}" ]]; then
-  LOGGED_OUT=false
-fi
-if $LOGGED_OUT; then
-  htmx_page << EOF
-  <h1>${PROJECT_NAME}</h1>
-  <a href='${RECURSE_BASE_URL}/oauth/authorize?client_id=${APP_ID}&redirect_uri=${REDIRECT_URI}&response_type=code'>Login</a>
+login() {
+  LOGGED_OUT=true
+  if [[ -n "${SESSION[id]}" ]]; then
+    LOGGED_OUT=false
+  fi
+  if $LOGGED_OUT; then
+    htmx_page << EOF
+  <div id="login" class="window">
+  <div class="title-bar">
+  <div class="title-bar-text">Login</div>
+  </div>
+  <div class="window-body">
+  <p>Welcome to the HP ColorPro 7440A Serial Web Gateway!</p>
+  <p>Please login with your Recurse account to get started.</p>
+      <section class="field-row" style="justify-content: flex-end">
+  <button onclick='window.location="${RECURSE_BASE_URL}/oauth/authorize?client_id=${APP_ID}&redirect_uri=${REDIRECT_URI}&response_type=code";'>Login</button>
+  </section>
+  </div>
+  </div>
 EOF
-  return
-fi
-
+  fi
+}
 
 htmx_page << EOF
-  <h1>${PROJECT_NAME}</h1>
+  <h1>${PROJECT_NAME}<sup>NEW!</sup></h1>
   <main hx-ext="sse" sse-connect="/sse">
-  <div id="status" sse-swap="finish">
+  <div class="window" id="wizard">
+  <div class="title-bar">
+  <div class="title-bar-text">Print Wizard</div>
+  <div class="title-bar-controls">
+    <button aria-label="Help"></button>
+	<button aria-label="Close" hx-get="/empty" hx-target="closest .window" hx-swap="outerHTML"></button>
+    </div>
   </div>
-  <content id="app" hx-get="/app" hx-trigger="sse:finish">
+  <div class="window-body" id="app" hx-get="/app" hx-trigger="sse:finish">
   $(component /app)
-  </content>
+  </div>
+  </div>
+  $(login)
+  $(component /progress)
+<div id="alerts">
+</div>
   </main>
 EOF

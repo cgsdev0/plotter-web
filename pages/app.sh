@@ -1,4 +1,5 @@
 
+
 function print_button {
 	local disabled
 	[[ -f data/pid ]]&& disabled=disabled
@@ -12,9 +13,9 @@ function stop_button {
 }
 
 function text_area {
-    echo '<textarea id="code" name="code" placeholder="HPGL code...">'
-	[[ -f data/pid ]]&& cat data/current
-	echo "</textarea>"
+    echo '<div class="textbox"><textarea rows=10 id="code" name="code" placeholder="HPGL code...">'
+	[[ -f data/pid ]] && cat data/current
+    echo "</textarea></div>"
 }
 
 function restore_button {
@@ -24,17 +25,14 @@ function restore_button {
 }
 
 htmx_page <<-EOF
-      <div sse-swap="progress">
-      </div>
-	  <div sse-swap="finish">
-	  </div>
-      <pre sse-swap="update">
-      </pre>
       <form hx-ext="json-enc" hx-post="/plot" hx-encoding='multipart/form-data' hx-swap="none">
+    <div style="margin: 1rem 0;">
+	  $(text_area)
+    </div>
+      <section class="field-row" style="justify-content: flex-end">
 	  $(print_button)
 	  $(stop_button)
 	  $(restore_button)
-      <br>
-	  $(text_area)
+	  </section>
       </form>
 EOF

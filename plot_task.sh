@@ -8,7 +8,7 @@ source config.sh
 if [[ "${DEV:-true}" == true ]]; then
 while read -r line; do
   echo "$line"
-  sleep 0.1
+  sleep 0.01
 done
 exit 0
 fi

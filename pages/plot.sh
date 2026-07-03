@@ -8,7 +8,29 @@ if [[ -z "${SESSION[id]}" ]]; then
   return $(status_code 401)
 fi
 
+done_box() {
+cat | tr -d '\n' << EOF
+<div id="alerts" hx-swap-oob="beforeend">
+  <div class="window">
+  <div class="title-bar">
+  <div class="title-bar-text">Done!</div>
+  <div class="title-bar-controls">
+	<button aria-label="Close" hx-get="/empty" hx-target="closest .window" hx-swap="outerHTML"></button>
+    </div>
+  </div>
+  <div class="window-body">
+  <p>The print completed successfully.</p>
+      <section class="field-row" style="justify-content: flex-end">
+	<button hx-get="/empty" hx-target="closest .window" hx-swap="outerHTML">OK</button>
+      </section>
+    </div>
+</div>
+</div>
+EOF
+}
+
 event_stream() {
+  event "start" | publish progress
   local start=$(date +%s%N)
   local length=$(wc -l < data/current)
   local line
@@ -29,7 +51,7 @@ event_stream() {
     fi
     ((idx++))
   done
-  event "finish" "Done!"| publish progress
+  event "finish" "$(done_box)" | publish progress
 }
 
 # TODO: validate the code first
@@ -59,3 +81,4 @@ echo "$!" > data/pid
 echo '<content id="app" hx-swap-oob="innerHTML">'
 component /app
 echo '</content>'
+component /progress
