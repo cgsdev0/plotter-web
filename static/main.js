@@ -14,7 +14,6 @@ let m = 1;
 
 document.body.addEventListener("htmx:beforeProcessNode", function(e) {
 	if (e.detail.elt.classList.contains("window")) {
-		console.log(e.detail.elt)
 		dragElement(e.detail.elt)
 	}
 
@@ -31,7 +30,6 @@ dragElement(wizard);
 dragElement(login);
 
 function sort_zs() {
-	console.log(stack)
 	stack.forEach((element, i) => {
 		if (element && element.style) {element.style.zIndex = i; }
 	});
@@ -51,7 +49,6 @@ function dragElement(element) {
 	}
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 	const header = element.querySelector(".title-bar")
-	console.log(header);
   if (header) {
 
 

@@ -22,7 +22,7 @@ fi
 
 kill $(cat data/pid) &> /dev/null
 
-header HX-Refresh true
-end_headers
-end_headers
+event "stop" | publish progress
 
+end_headers
+end_headers

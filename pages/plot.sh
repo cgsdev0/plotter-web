@@ -9,7 +9,7 @@ if [[ -z "${SESSION[id]}" ]]; then
 fi
 
 done_box() {
-cat | tr -d '\n' << EOF
+cat << EOF | tr -d '\n'
 <div id="alerts" hx-swap-oob="beforeend">
   <div class="window">
   <div class="title-bar">
@@ -29,6 +29,13 @@ cat | tr -d '\n' << EOF
 EOF
 }
 
+progress_bar() {
+cat << EOF | tr -d '\n'
+<div class="progress-indicator segmented">
+<span class="progress-indicator-bar" style="width: $1%;" />
+</div>
+EOF
+}
 event_stream() {
   event "start" | publish progress
   local start=$(date +%s%N)
@@ -46,8 +53,9 @@ event_stream() {
     if ((delta2 > 200000000)); then
       last=$now
       printf -v remaining "%02d:%02d" $mins $seconds
+      percent=$((idx * 100 / length));
       { event "update" "$remaining remaining" "$line";
-  event "progress" "<progress id='file' max='$length' value='$idx'>$idx / $length</progress>"; } | publish progress
+	event "progress" "$(progress_bar $percent )"; } | publish progress
     fi
     ((idx++))
   done
@@ -61,16 +69,22 @@ if [[ -f data/pid ]]; then
   return $(status_code 420)
 fi
 
-jq -r '.code' <<< "$REQUEST_BODY" \
-  | tr -d '\n \t' \
-  | sed 's/;/;\n/g' > data/current
+code=$(jq -r '.code' <<< "$REQUEST_BODY")
+
+if [[ -z "$code" ]]  || [[ $code == "null" ]]; then
+  return $(status_code 400)
+fi
 
 
-max_len=$(awk '{ if (length > max) max = length } END { print max }' < data/current)
+max_len=$(awk '{ if (length > max) max = length } END { print max }' <<< "$code")
 if ((max_len > 60)); then
   echo "<div id='status' hx-swap-oob='innerHTML'>Invalid hpgl</div>"
   return
 fi
+
+jq -r '.code' <<< "$REQUEST_BODY" \
+  | tr -d '\n \t' \
+  | sed 's/;/;\n/g' > data/current
 
 
 ./plot_task.sh < data/current \

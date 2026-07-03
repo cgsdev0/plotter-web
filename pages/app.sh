@@ -30,6 +30,9 @@ htmx_page <<-EOF
 	  $(text_area)
     </div>
       <section class="field-row" style="justify-content: flex-end">
+    <div class="status-field-border" style="padding: 5px; flex: 1;">
+    Plotter status: $(cat data/status)
+</div>
 	  $(print_button)
 	  $(stop_button)
 	  $(restore_button)

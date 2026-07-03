@@ -21,6 +21,25 @@ EOF
   fi
 }
 
+detect_status() {
+  if [[ -f data/pid ]]; then
+    return
+  fi
+  local DEV=/dev/ttyUSB0
+
+  stty -F $DEV 9600 raw -echo
+  exec 3<>$DEV
+
+  printf '\x1B.B' >&3
+  IFS= read -t 1 -n6 bytes <&3
+  if [[ $? -ne 0 ]]; then
+    echo "Offline" > data/status
+  else
+    echo "Online" > data/status
+  fi
+  exec 3>&-
+}
+
 htmx_page << EOF
   <h1>${PROJECT_NAME}<sup>NEW!</sup></h1>
   <main hx-ext="sse" sse-connect="/sse">
@@ -32,7 +51,7 @@ htmx_page << EOF
 	<button aria-label="Close" hx-get="/empty" hx-target="closest .window" hx-swap="outerHTML"></button>
     </div>
   </div>
-  <div class="window-body" id="app" hx-get="/app" hx-trigger="sse:finish">
+  <div class="window-body" id="app" hx-get="/app" hx-trigger="sse:finish,sse:stop">
   $(component /app)
   </div>
   </div>

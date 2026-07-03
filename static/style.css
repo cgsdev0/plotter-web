@@ -12,9 +12,9 @@ sup {
 
 body {
   background-color: #c0c0c0;
-  background-image:url('/static/banner.svg');
-  background-repeat:repeat-x;
-  background-position:00px 90px;
+  background-image: url("/static/banner.svg");
+  background-repeat: repeat-x;
+  background-position: 00px 90px;
 }
 
 .textbox {
@@ -33,11 +33,18 @@ body {
 }
 
 h1 {
-  text-align:center;
+  text-align: center;
 }
 
 #progress {
-  width: 420px;
+  width: 300px;
+  .cimg {
+    display: flex;
+    justify-content: center;
+    img {
+      image-rendering: pixelated;
+    }
+  }
 }
 
 button {
@@ -45,7 +52,7 @@ button {
 }
 
 button:disabled {
-  cursor:not-allowed;
+  cursor: not-allowed;
 }
 
 .title-bar {
@@ -53,11 +60,11 @@ button:disabled {
 }
 
 #signature {
-  display:none;
+  display: none;
 }
 
 .hidden {
-  display:none;
+  display: none;
 }
 
 .window {
