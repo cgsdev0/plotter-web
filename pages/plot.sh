@@ -37,7 +37,7 @@ cat << EOF | tr -d '\n'
 EOF
 }
 event_stream() {
-  event "start" | publish progress
+  event "start" | publish progress &
   local start=$(date +%s%N)
   local length=$(wc -l < data/current)
   local line
@@ -55,11 +55,11 @@ event_stream() {
       printf -v remaining "%02d:%02d" $mins $seconds
       percent=$((idx * 100 / length));
       { event "update" "$remaining remaining" "$line";
-	event "progress" "$(progress_bar $percent )"; } | publish progress
+	event "progress" "$(progress_bar $percent )"; } | publish progress &
     fi
     ((idx++))
   done
-  event "finish" "$(done_box)" | publish progress
+  event "finish" "$(done_box)" | publish progress &
 }
 
 # TODO: validate the code first
