@@ -56,6 +56,7 @@ event_stream() {
     fi
     ((idx++))
   done
+  sleep 2
   event "finish" "$(done_box)" | publish progress
 }
 
