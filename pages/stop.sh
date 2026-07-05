@@ -22,7 +22,7 @@ fi
 
 kill $(cat data/pid) &> /dev/null
 
-event "stop" | publish progress
+event "stop" | publish progress &
 
 end_headers
 end_headers
