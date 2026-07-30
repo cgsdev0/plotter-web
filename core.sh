@@ -384,7 +384,7 @@ parseHttpRequest() {
 
 writeHttpResponse() {
   if [[ "$REQUEST_PATH" == "/static/"* ]]; then
-    FILE_PATH=".${REQUEST_PATH}"
+    FILE_PATH=".$(urldecode "$REQUEST_PATH")"
 
     if [[ ! -f "$FILE_PATH" ]]; then
       respond 404 Not Found

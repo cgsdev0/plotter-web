@@ -24,6 +24,10 @@ function restore_button {
 	echo "<button hx-get='/restore' hx-swap='textContent' hx-target='#code' $disabled>Restore</button>"
 }
 
+function preview_button {
+	echo "<button hx-post='/preview' hx-include="[name='code']">Preview</button>"
+}
+
 htmx_page <<-EOF
       <form hx-ext="json-enc" hx-post="/plot" hx-encoding='multipart/form-data' hx-swap="none">
     <div style="margin: 1rem 0;">
@@ -36,6 +40,7 @@ htmx_page <<-EOF
 	  $(print_button)
 	  $(stop_button)
 	  $(restore_button)
+	  $(preview_button)
 	  </section>
       </form>
 EOF
