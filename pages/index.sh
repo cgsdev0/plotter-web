@@ -68,6 +68,6 @@ htmx_page << EOF
   $(component /progress)
 <div id="alerts">
 </div>
-  $(ip a)
+  $(hostname -I | cut -d ' ' -f1)
   </main>
 EOF
