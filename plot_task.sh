@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -m
-
 trap 'rm data/pid' EXIT
 
 source config.sh

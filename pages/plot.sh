@@ -38,12 +38,13 @@ jq -r '.code' <<< "$REQUEST_BODY" \
   | tr -d '\n \t' | tr '[:lower:]' '[:upper:]' \
   | sed 's/;/;\n/g' > data/current
 
+set -m
 
 ./plot_task.sh < data/current 1>&- 2>&- &
 
-echo "$$" > data/pid
+echo "$!" > data/pid
 
-debug "$$"
+debug "$!"
 
 echo '<content id="app" hx-swap-oob="innerHTML">'
 component /app
