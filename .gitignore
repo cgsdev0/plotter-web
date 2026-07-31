@@ -3,3 +3,4 @@ pubsub/
 uploads/
 sessions/
 .secrets
+static/previews/

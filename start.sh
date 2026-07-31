@@ -2,6 +2,7 @@
 
 cd "${0%/*}"
 
+mkdir -p static/previews
 rm data/pid
 touch data/status
 

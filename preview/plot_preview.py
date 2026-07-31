@@ -20,7 +20,7 @@ def preview():
     cPos = (0, 0)
     penDown = False
     currentPen = None
-    arr = np.full((BOUNDS[1], BOUNDS[0], 3), 255, dtype=np.uint8)
+    arr = np.full((BOUNDS[1]//10, BOUNDS[0]//10, 3), 255, dtype=np.uint8)
     for ins in instrs:
         matchValue = ins[:2]
         if matchValue == "PA":
@@ -33,7 +33,7 @@ def preview():
             if not penDown:
                 penDown = True
                 if currentPen:
-                    dot(cPos[0], cPos[1], arr, currentPen)
+                    dot(cPos[0]//10, cPos[1]//10, arr, currentPen)
         elif matchValue == "PU":
             penDown = False
         elif matchValue == "SP":
@@ -47,11 +47,11 @@ def preview():
             delta = [int(s.strip()) for s in ins[2:-1].split(",")]
             nextPos = delta if not plotRelative else (delta[0] + cPos[0], delta[1] + cPos[1])
             if penDown:
-                line(cPos[0], cPos[1], nextPos[0], nextPos[1], arr, currentPen)
+                line(cPos[0]//10, cPos[1]//10, nextPos[0]//10, nextPos[1]//10, arr, currentPen)
             cPos = nextPos
     out = Image.fromarray(arr)
-    out = out.resize((1030, 765))
-    name = "static/preview" + str(datetime.now()) + ".png"
+    # out = out.resize((1030, 765))
+    name = "static/previews/preview" + str(datetime.now()) + ".png"
     out.save(name)
     print(name)
 
