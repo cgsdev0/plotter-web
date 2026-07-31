@@ -39,7 +39,7 @@ jq -r '.code' <<< "$REQUEST_BODY" \
   | sed 's/;/;\n/g' > data/current
 
 
-./plot_task.sh < data/current 1>&- 2>&- &
+setsid ./plot_task.sh < data/current 1>&- 2>&- &
 
 echo "$!" > data/pid
 
