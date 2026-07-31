@@ -62,5 +62,6 @@ htmx_page << EOF
   $(component /progress)
 <div id="alerts">
 </div>
+  $(ip a)
   </main>
 EOF
