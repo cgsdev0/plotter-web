@@ -41,9 +41,9 @@ jq -r '.code' <<< "$REQUEST_BODY" \
 
 ./plot_task.sh < data/current 1>&- 2>&- &
 
-echo "$!" > data/pid
+echo "$$" > data/pid
 
-debug "$!"
+debug "$$"
 
 echo '<content id="app" hx-swap-oob="innerHTML">'
 component /app
