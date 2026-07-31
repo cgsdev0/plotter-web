@@ -17,7 +17,7 @@ cat << EOF
     </div>
   </div>
   <div class="window-body">
-  <img alt="the thing you wanted" src="$preview" style="width:100%"/>
+  <a href="$preview" target=_blank><img alt="the thing you wanted" src="$preview" style="width:100%"/></a>
       <section class="field-row" style="justify-content: flex-end">
 	<button hx-get="/empty" hx-target="closest .window" hx-swap="outerHTML">OK</button>
       </section>
