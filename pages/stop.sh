@@ -20,6 +20,7 @@ if [[ ! -f data/pid ]]; then
   return $(status_code 400)
 fi
 
+kill -- -$(cat data/pid) &> /dev/null
 kill $(cat data/pid) &> /dev/null
 
 event "stop" | publish progress &
