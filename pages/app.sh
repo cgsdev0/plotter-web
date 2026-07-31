@@ -25,7 +25,7 @@ function restore_button {
 }
 
 function preview_button {
-	echo "<button hx-post='/preview' hx-include="[name='code']">Preview</button>"
+	echo "<button hx-post='/preview_menu' hx-include="[name='code']">Preview</button>"
 }
 
 htmx_page <<-EOF

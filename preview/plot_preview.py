@@ -4,13 +4,18 @@ import math
 import pen_definition as pd
 import sys
 from datetime import datetime
+import json
 
 BOUNDS = (10300, 7650)
 
 
 def preview():
+    pens = json.loads(sys.argv[1])
+    with open('pens.json', 'r') as file:
+        values = json.loads(file.read())
+    pens = [values.get(pens.get("sp"+str(n+1),""),0) for n in range(8)]
+    carriage = pd.PenCarriage([(pd.PenDefinition(*p) if p else 0) for p in pens])
     instrs = sys.stdin.read().split('\n')
-    carriage = pd.ALL_BLACK
     plotRelative = False
     cPos = (0, 0)
     penDown = False

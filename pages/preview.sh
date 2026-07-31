@@ -1,9 +1,10 @@
 source venv/bin/activate
+carriage=$(jq -c 'del(.code)' <<< "$REQUEST_BODY")
 preview=$(jq -r '.code' <<< "$REQUEST_BODY" \
   | tr -d '\n \t' \
   | tr '[:lower:]' '[:upper:]' \
   | sed 's/;/;\n/g' \
-  | python3 preview/plot_preview.py)
+  | python3 preview/plot_preview.py "$carriage")
 
 if [[ $? -eq 0 ]]; then
 cat << EOF

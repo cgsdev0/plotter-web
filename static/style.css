@@ -83,3 +83,8 @@ button:disabled {
 #login {
   width: 300px;
 }
+
+select,
+::picker(select) {
+  appearance: base-select;
+}
