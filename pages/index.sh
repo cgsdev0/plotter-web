@@ -68,6 +68,6 @@ htmx_page << EOF
   $(component /progress)
 <div id="alerts">
 </div>
-  $(hostname -I | cut -d ' ' -f1)
+  <div class="footer">$(hostname -I | cut -d ' ' -f1)</div>
   </main>
 EOF

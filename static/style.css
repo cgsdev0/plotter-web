@@ -17,6 +17,13 @@ body {
   background-position: 00px 90px;
 }
 
+.footer {
+  position: fixed;
+  bottom:11px;
+  right:11px;
+  font-family:monospace;
+}
+
 .textbox {
   display: flex;
   textarea {
