@@ -462,6 +462,7 @@ writeHttpResponse() {
       respond 200 OK
       header Content-Type "text/event-stream"
       header Access-Control-Allow-Origin 'https://plot.recurse.com'
+      header Access-Control-Allow-Credentials "true"
       end_headers
       source "pages/${ROUTE_SCRIPT}"
       TOPIC="$(topic)"
