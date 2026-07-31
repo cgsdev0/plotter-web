@@ -43,9 +43,15 @@ detect_status() {
 }
 [[ "${DEV:-true}" == "true" ]] || detect_status
 
+if [[ "${DEV:-true}" == "true" ]]; then
+  SSE_ENDPT="/sse"
+else
+  SSE_ENDPT="https://plot.github2.com/sse"
+fi
+
 htmx_page << EOF
   <h1>${PROJECT_NAME}<sup>NEW!</sup></h1>
-  <main hx-ext="sse" sse-connect="/sse">
+  <main hx-ext="sse" sse-connect="$SSE_ENDPT">
   <div class="window" id="wizard">
   <div class="title-bar">
   <div class="title-bar-text">Print Wizard</div>
