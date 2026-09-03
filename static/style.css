@@ -38,11 +38,12 @@ body {
   top: 20vh;
   left: 20vw;
 }
+
 #camera {
   max-width: 640px;
   min-width: 540px;
   top: 60vh;
-  left: 20vw;
+  left: 25vw;
 }
 
 h1 {
@@ -82,7 +83,7 @@ button:disabled {
 }
 
 .window {
-  top: -1999999px;
+  top: 0px;
   left: 0px;
   user-select: none;
   position: absolute;
