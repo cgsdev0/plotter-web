@@ -18,6 +18,7 @@ htmx_page << EOF
   <div class="window-body">
   <div class="cimg">
   <img src="/static/move.gif" />
+  <iframe src="http://plotpi.cymric-logarithm.ts.net:8889/cam/" allow="autoplay"></iframe>
   </div>
     <div sse-swap="progress">
     </div>

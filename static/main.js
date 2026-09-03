@@ -25,8 +25,10 @@ document.body.addEventListener("htmx:beforeCleanupElement", function(e) {
 
 // Make the DIV element draggable:
 const wizard = window.wizard;
+const camera = window.camera;
 const login = window.login;
 dragElement(wizard);
+dragElement(camera);
 dragElement(login);
 
 function sort_zs() {

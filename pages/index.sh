@@ -66,6 +66,7 @@ htmx_page << EOF
   </div>
   $(login)
   $(component /progress)
+  $(component /camera)
 <div id="alerts">
 </div>
   <div class="footer">$(hostname -I | cut -d ' ' -f1)</div>
