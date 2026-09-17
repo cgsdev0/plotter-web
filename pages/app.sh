@@ -34,6 +34,7 @@ htmx_page <<-EOF
 	  $(text_area)
     </div>
       <section class="field-row" style="justify-content: flex-end">
+<button type="button" onclick='window.location="/static/doc/index.html";'>Docs</button>
     <div class="status-field-border" style="padding: 5px; flex: 1;">
     Plotter status: <span hx-swap='textContent' sse-swap='status'>$(cat data/status)</span>
 </div>

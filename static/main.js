@@ -30,7 +30,6 @@ const login = window.login;
 dragElement(wizard);
 dragElement(camera);
 dragElement(login);
-dragElement(camera);
 
 function sort_zs() {
 	stack.forEach((element, i) => {
