@@ -3,8 +3,16 @@ if [[ "$REQUEST_METHOD" != "POST" ]]; then
   return $(status_code 405)
 fi
 
+AUTH=${HTTP_HEADERS[authorization]}
+# Trim off "Bearer " prefix
+# tail is 1-indexed
+TOKEN=$(echo $AUTH | tail -c +8)
+echo $TOKEN | ./verify.py
+VERIFY_EXIT_CODE=$?
+
+# check token or session
 # very secure
-if [[ -z "${SESSION[id]}" ]]; then
+if [[ $VERIFY_EXIT_CODE -ne 0 && -z "${SESSION[id]}" ]]; then
   return $(status_code 401)
 fi
 

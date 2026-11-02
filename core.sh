@@ -415,41 +415,41 @@ writeHttpResponse() {
 
   if [[ ! -z "$USE_HMR" ]] && [[ "$REQUEST_PATH" == "/hmr" ]]; then
     if [[ "$REQUEST_METHOD" == "POST" ]]; then
-      respond 204 OK
-      header HX-Redirect "${HTTP_HEADERS[hx-current-url]}"
-      end_headers
-      return
+        respond 204 OK
+        header HX-Redirect "${HTTP_HEADERS[hx-current-url]}"
+        end_headers
+        return
     fi
     respond 200 OK
     header Content-Type "text/event-stream"
     end_headers
     output() {
-      killthehmr() {
+        killthehmr() {
         kill "$HMR_PID" &> /dev/null
         wait "$HMR_PID" &> /dev/null
         exit 0
-      }
-      trap 'killthehmr' TERM
-      while true; do
+        }
+        trap 'killthehmr' TERM
+        while true; do
         inotifywait -e MODIFY -r pages static &> /dev/null &
         HMR_PID=$!
         wait "$HMR_PID" &> /dev/null
         event "reload"
-      done
+        done
     }
     output &
     PID=$!
 
 
     while IFS= read -r line; do
-      :
+        :
     done
 
     kill $PID &>/dev/null
     wait $PID &>/dev/null
 
     return
-  elif [[ -z "$ROUTE_SCRIPT" ]]; then
+    elif [[ -z "$ROUTE_SCRIPT" ]]; then
     debug "404 no match found"
     respond 404 Not Found
     end_headers
@@ -458,48 +458,48 @@ writeHttpResponse() {
 
 
   if directive_test=$(head -1 "pages/${ROUTE_SCRIPT}"); then
-    if [[ "$directive_test" == "# sse" ]]; then
-      respond 200 OK
-      header Content-Type "text/event-stream"
-      header Access-Control-Allow-Origin 'https://plot.recurse.com'
-      header Access-Control-Allow-Credentials "true"
-      end_headers
-      source "pages/${ROUTE_SCRIPT}"
-      TOPIC="$(topic)"
-      if [[ -z "$TOPIC" ]]; then
+   if [[ "$directive_test" == "# sse" ]]; then
+        respond 200 OK
+        header Content-Type "text/event-stream"
+        header Access-Control-Allow-Origin 'https://plot.recurse.com'
+        header Access-Control-Allow-Credentials "true"
+        end_headers
+        source "pages/${ROUTE_SCRIPT}"
+        TOPIC="$(topic)"
+        if [[ -z "$TOPIC" ]]; then
         debug "ERROR: EMPTY TOPIC"
         return
-      fi
-      SUB_FD=$(subscribe "$TOPIC")
-      output() {
+        fi
+        SUB_FD=$(subscribe "$TOPIC")
+        output() {
         curiosity() {
-          kill "$CAT_PID" &> /dev/null
-          wait "$CAT_PID" &> /dev/null
-          exit 0
+            kill "$CAT_PID" &> /dev/null
+            wait "$CAT_PID" &> /dev/null
+            exit 0
         }
         trap 'curiosity' TERM
         while true; do
-          cat "$SUB_FD" &
-          CAT_PID=$!
-          wait "$CAT_PID" &> /dev/null
+            cat "$SUB_FD" &
+            CAT_PID=$!
+            wait "$CAT_PID" &> /dev/null
         done
-      }
-      output &
-      PID=$!
+        }
+        output &
+        PID=$!
 
-      [[ $(type -t on_open) == function ]] && on_open 1>&2
+        [[ $(type -t on_open) == function ]] && on_open 1>&2
 
-      while IFS= read -r line; do
+        while IFS= read -r line; do
         :
-      done
+        done
 
-      kill "$PID" &>/dev/null
-      wait "$PID" &>/dev/null
+        kill "$PID" &>/dev/null
+        wait "$PID" &>/dev/null
 
-      unsubscribe "$SUB_FD"
-      [[ $(type -t on_close) == function ]] && on_close 1>&2
+        unsubscribe "$SUB_FD"
+        [[ $(type -t on_close) == function ]] && on_close 1>&2
 
-      return
+        return
     elif [[ "$directive_test" == "# headers" ]]; then
       CUSTOM_HEADERS=1
     fi
