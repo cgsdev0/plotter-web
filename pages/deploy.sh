@@ -5,6 +5,6 @@ if [[ "$AUTH" != "$MAGIC_DEPLOY_TOKEN" ]]; then
 fi
 
 echo "OH HELL YEA. ok one sec"
-sudo -u rc git pull
+sudo -u rc git pull origin main
 sleep 1
 systemctl restart plotter-web
